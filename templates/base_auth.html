@@ -101,21 +101,22 @@
       </button>
     </li>
   </ul>
-
-  <div id="navbarSearch" class="navbar-search w-100 collapse">
-    <input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
-  </div>
 </header>
 
 <div class="container-fluid">
   <div class="row">
-    
-    {% include "parts/_sidebar.html" %}
 
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        {% block content %}
+    <main class="col-md-12">
+      
+      <div class="card"></div>
 
-        {% endblock content %}
+      <div class="col-md-3"></div>
+        <div class="col-md-6">
+          {% block content %}
+          
+          {% endblock content %}
+        </div>
+      <div class="col-md-3"></div>
     </main>
   </div>
 </div>

@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(encoding='utf-16')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'authentication.apps.AuthenticationConfig',
     'expenses.apps.ExpensesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
