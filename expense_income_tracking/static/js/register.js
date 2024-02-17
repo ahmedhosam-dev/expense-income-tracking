@@ -3,7 +3,6 @@ const feedBackArea = document.querySelector(".invalid-feedback")
 
 
 usernameField.addEventListener("keyup", (e) => {
-    console.log("55555", 555555);
     const usernameVal = e.target.value;
     
     usernameField.classList.remove("is-invalid")
@@ -16,7 +15,6 @@ usernameField.addEventListener("keyup", (e) => {
         }) 
         .then((res) => res.json())
         .then((data) => {
-            console.log("data", data);
             if (data.username_error) {
                 usernameField.classList.add("is-invalid")
 
