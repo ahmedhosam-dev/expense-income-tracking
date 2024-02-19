@@ -11,19 +11,19 @@
           <h4>Register for a free account</h4>
         </div>
         
-        <form action="#" method="POST">
+        <form action="{% url 'register' %}" method="POST">
           {% csrf_token %}
           {% include 'parts/_messages.html' %}
 
           <div class="form-group py-3">
-            <input type="text" name="username" id="usernameField" class="form-control form-control-sm" placeholder="User name">
+            <input type="text" name="username" id="usernameField" class="form-control form-control-sm" placeholder="User name" value="{{fieldValues.username}}">
           </div>
 
           <div class="invalid-feedback invalid-feedback" style="display: none;"></div>
           <p class="text-ms text-success usernameSuccessOutput"></p>
           
           <div class="form-group py-3">
-            <input type="email" name="email" id="emailField" class="form-control form-control-sm" placeholder="Email">
+            <input type="email" name="email" id="emailField" class="form-control form-control-sm" placeholder="Email" value="{{fieldValues.email}}">
           </div>
           
           <div class="emailFeedBackArea invalid-feedback" style="display: none;"></div>
@@ -35,7 +35,7 @@
           </div>
           
           
-          <input type="submit" value="Register" class="btn btn-primary w-100 submit-btn">
+          <input type="submit" value="Register" class="btn btn-primary w-100 submitBtn">
         </form>
         
       </div>
