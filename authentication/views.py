@@ -1,10 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.models import User
 import json
 from django.http import JsonResponse
 from validate_email import validate_email
 from django.contrib import messages
+from django.core.mail import EmailMessage
+from django.utils.encoding import force_bytes, DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import reverse
+from .utils import tokenGenerator
+
 
 # Create your views here.
 
@@ -59,10 +66,36 @@ class RegistrationView(View):
                 
                 user = User.objects.create_user(username, email)
                 user.set_password(password)
+                user.is_active = False
                 user.save()
-                messages.success(request, "Account successfully created.")
+
+                uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+                token = tokenGenerator.make_token(user)
+                domain = get_current_site(request).domain
+                link = reverse('activate', kwargs = {
+                    'uidb64': uidb64,
+                    'token': token,
+                })
+                actiavteURL = f"http://{domain}{link}"
+
+                email = EmailMessage(
+                    "Active EXIN account", # Email subject
+                    f"Hi {user.username},\n\nClick this link to verify your account\n{actiavteURL}", # Eamil body
+                    "noreply@exin.com", # From
+                    [email], # To
+                )
+
+                email.send(False)
+
+                messages.success(request, "Account successfully created. \n Please check your email to verify your account!")
+
                 return render(request, 'authentication/register.html')
                 
                     
     
         return render(request, 'authentication/register.html')
+    
+
+class VerificationView(View):
+    def get(slef, request, uidb64, token):
+        return redirect('login')
