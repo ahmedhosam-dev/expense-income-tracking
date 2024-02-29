@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 import json
 from django.http import JsonResponse
 from validate_email import validate_email
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes, DjangoUnicodeDecodeError
 from django.utils.encoding import force_str
@@ -120,5 +120,33 @@ class VerificationView(View):
         return redirect('login')
     
 class LoginView(View):
-    def get(slef, request):
+    def get(self, request):
         return render(request, 'authentication/login.html')
+    
+    def post(self, request):
+        userName = request.POST['username'] 
+        password = request.POST['password'] 
+
+        if userName and password:
+            user = auth.authenticate(username=userName, password=password)
+            if user:
+                if user.is_active:
+                    auth.login(request, user)
+                    messages.success(request, f"Welcome, {user.username} you are now logged in.")
+                    return redirect('expenses')
+
+                messages.error(request, "Account is not activate, please check your email!")
+                return render(request, 'authentication/login.html')
+
+            messages.error(request, "Invalid credentials, try again!")
+            return render(request, 'authentication/login.html')
+        
+        messages.error(request, "Please fill all fields!")
+        return render(request, 'authentication/login.html')
+    
+class LogoutView(View):
+    def post(self, request):
+        auth.logout(request)
+        messages.success(request, "You have been logged out")
+        
+        return redirect('login')
