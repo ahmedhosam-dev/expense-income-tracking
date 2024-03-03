@@ -88,16 +88,7 @@
 
 <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="/">EXIN Tracker</a>
-
-  <ul class="navbar-nav px-3">
-    <li class="nav-item text-nowrap">
-      <form action="{% url 'logout' %}" method="POST">
-        {% csrf_token %}
-        <input class="nav-link px-3 text-white" type="submit" value="Logout">
-      </form>
-    </li>
-  </ul>
-
+  <span class="ms-auto mx-5">{{ userName }}</span>
   <!-- <ul class="navbar-nav flex-row d-md-none">
     <li class="nav-item text-nowrap">
       <button class="nav-link px-3 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSearch" aria-controls="navbarSearch" aria-expanded="false" aria-label="Toggle search">

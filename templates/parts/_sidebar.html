@@ -51,17 +51,23 @@
         <hr class="my-3">
 
         <ul class="nav flex-column mb-auto">
+
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="#">
+            <a class="nav-link d-flex align-items-center gap-2" href="{% url 'preferences' %}">
               <svg class="bi"><use xlink:href="#gear-wide-connected"/></svg>
               Settings
             </a>
           </li>
+
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="#">
-              <svg class="bi"><use xlink:href="#door-closed"/></svg>
-              Sign out
-            </a>
+            <form action="{% url 'logout' %}" method="POST">
+              {% csrf_token %}
+              <div class="nav-link d-flex align-items-center">
+                <svg class="bi"><use xlink:href="#door-closed"/></svg>
+                <input class="nav-link" type="submit" value="Logout">
+                </input>
+              </div>
+            </form>
           </li>
         </ul>
       </div>

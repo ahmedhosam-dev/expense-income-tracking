@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/auth/login')
 def index(request):
-    return render(request, 'expenses/index.html')
+    return render(request, 'expenses/index.html', {'userName': request.user})
 
 def add_expense(request):
-    return render(request, 'expenses/add_expense.html')
+    return render(request, 'expenses/add_expense.html', {'userName': request.user})
