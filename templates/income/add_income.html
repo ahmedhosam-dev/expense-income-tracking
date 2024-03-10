@@ -5,8 +5,8 @@
     <div class="col-md-10">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{% url 'expenses' %}">My Expenses</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Add Expenses</li>
+          <li class="breadcrumb-item"><a href="{% url 'incomes' %}">My Incomes</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Add Income</li>
         </ol>
       </nav>
     </div>
@@ -15,7 +15,7 @@
 
 <div class="card">
   <div class="card-body">
-    <form action="{% url 'add-expense' %}" method="post">
+    <form action="{% url 'add-income' %}" method="post">
       {% include 'parts/_messages.html'%} {% csrf_token %}
       <div class="form-group">
         <label for="amount">Amount</label>
@@ -38,21 +38,21 @@
       </div>
       <br>
       <div class="form-group">
-        <label for="category">Category</label>
-        <select class="form-control" name="category">
-          {% for category in categories %}
-          <option name="category" value="{{category.name}}">{{category.name}}</option>
+        <label for="source">Source</label>
+        <select class="form-control" name="source">
+          {% for source in sources %}
+          <option name="source" value="{{source.name}}">{{source.name}}</option>
           {% endfor %}
         </select>
       </div>
       <br>
       <div class="form-group">
-        <label for="expense_date">Date of Expense</label>
+        <label for="income_date">Date of income</label>
         <input
           type="date"
           class="form-control form-control-sm"
-          name="expense_date"
-          value="{{ expense_date }}"
+          name="income_date"
+          value="{{ income_date }}"
         />
       </div>
       <br>

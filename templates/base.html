@@ -89,6 +89,7 @@
 <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="/">EXIN Tracker</a>
   <span class="ms-auto mx-5">{{ userName }}</span>
+
   <!-- <ul class="navbar-nav flex-row d-md-none">
     <li class="nav-item text-nowrap">
       <button class="nav-link px-3 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSearch" aria-controls="navbarSearch" aria-expanded="false" aria-label="Toggle search">
@@ -100,23 +101,26 @@
         <svg class="bi"><use xlink:href="#list"/></svg>
       </button>
     </li>
-  </ul>
+  </ul> -->
 
   <div id="navbarSearch" class="navbar-search w-100 collapse">
     <input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
-  </div> -->
+  </div>
+  
 </header>
 
 <div class="container-fluid">
   <div class="row">
     
-    {% include "parts/_sidebar.html" %}
+    {% include 'parts/_sidebar.html' %}
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         {% block content %}
 
         {% endblock content %}
     </main>
+
+    </div>
   </div>
 </div>
 <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

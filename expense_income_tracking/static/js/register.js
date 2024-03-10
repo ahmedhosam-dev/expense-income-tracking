@@ -1,54 +1,48 @@
-const usernameField = document.querySelector("#usernameField")
-const feedBackArea = document.querySelector(".invalid-feedback")
-// const usernameSuccessOutput = document.querySelector(".usernameSuccessOutput")
+const usernameField = document.querySelector("#usernameField");
+const feedBackArea = document.querySelector(".invalid-feedback");
 
-const emailField = document.querySelector("#emailField")
-const emailFeedBackArea = document.querySelector(".emailFeedBackArea")
-// const emailSuccessOutput = document.querySelector(".emailSuccessOutput")
+const emailField = document.querySelector("#emailField");
+const emailFeedBackArea = document.querySelector(".emailFeedBackArea");
 
 
-const passwordField = document.querySelector("#passwordField")
-const showPasswordToggle = document.querySelector(".showPasswordToggle")
+const passwordField = document.querySelector("#passwordField");
+const showPasswordToggle = document.querySelector(".showPasswordToggle");
 
 
-const submitBtn = document.querySelector(".submitBtn")
+const submitBtn = document.querySelector(".submitBtn");
 
 
 
 showPasswordToggle.addEventListener("click", (e) => {
     if (showPasswordToggle.textContent === "SHOW"){
-        showPasswordToggle.textContent = "HIDE"
-        passwordField.setAttribute("type", "text")
+        showPasswordToggle.textContent = "HIDE";
+        passwordField.setAttribute("type", "text");
     } else {
-        showPasswordToggle.textContent = "SHOW"
-        passwordField.setAttribute("type", "password")
+        showPasswordToggle.textContent = "SHOW";
+        passwordField.setAttribute("type", "password");
     }
 })
 
 emailField.addEventListener("keyup", (e) => {
-    const emailVal = e.target.value
+    const emailVal = e.target.value;
 
-    // emailSuccessOutput.textContent = `Checking ${emailVal}`
-    // emailSuccessOutput.style.display = "block"
-    
-    emailField.classList.remove("is-invalid")
-    emailFeedBackArea.style.display = "none"
+    emailField.classList.remove("is-invalid");
+    emailFeedBackArea.style.display = "none";
     
     if (emailVal.length > 0) {
         fetch("/auth/validate-email", {
             body: JSON.stringify({email: emailVal}),
             method: "POST"
-        }) 
+        })
         .then((res) => res.json())
         .then((data) => {
-            // emailSuccessOutput.style.display = "none"
             if (data.email_error) {
-                submitBtn.disabled = true
-                emailField.classList.add("is-invalid")
-                emailFeedBackArea.style.display = "block"
-                emailFeedBackArea.innerHTML = `<p>${ data.email_error }</p>`
+                submitBtn.disabled = true;
+                emailField.classList.add("is-invalid");
+                emailFeedBackArea.style.display = "block";
+                emailFeedBackArea.innerHTML = `<p>${ data.email_error }</p>`;
             } else {
-                submitBtn.removeAttribute("disabled")
+                submitBtn.removeAttribute("disabled");
             }
         });
     }
@@ -57,10 +51,6 @@ emailField.addEventListener("keyup", (e) => {
 
 usernameField.addEventListener("keyup", (e) => {
     const usernameVal = e.target.value;
-
-    // usernameSuccessOutput.textContent = `Checking ${usernameVal}`
-    // usernameSuccessOutput.style.display = "block"
-
 
     usernameField.classList.remove("is-invalid")
     feedBackArea.style.display = "none";
@@ -72,14 +62,13 @@ usernameField.addEventListener("keyup", (e) => {
         }) 
         .then((res) => res.json())
         .then((data) => {
-            // usernameSuccessOutput.style.display = "none"
             if (data.username_error) {
-                submitBtn.disabled = true                
-                usernameField.classList.add("is-invalid")
+                submitBtn.disabled = true;         
+                usernameField.classList.add("is-invalid");
                 feedBackArea.style.display = "block";
-                feedBackArea.innerHTML = `<p>${ data.username_error }</p>`
+                feedBackArea.innerHTML = `<p>${ data.username_error }</p>`;
             } else {
-                submitBtn.removeAttribute("disabled")
+                submitBtn.removeAttribute("disabled");
             }
         });
     }

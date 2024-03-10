@@ -28,7 +28,15 @@
           <input type="submit" value="Login" class="btn btn-primary w-100 submitBtn">
         </form>
         
+        <div class="container">
+          <span class="text-lead lead"> Don't have account ? </span> <a href="{% url 'register' %}"> Register </a>
+          <br>
+          <span class="text-lead lead"> Forgot password ? </span> <a href="{% url 'request-password' %}"> Reset it </a>
+
+        </div>
       </div>
+
+
     </div>
   </div>
   <div class="col-md-4"></div>
