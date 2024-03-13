@@ -1,5 +1,5 @@
 const renderChart = (data, labels) => {
-  let ctx = document.getElementById("myChart").getContext("2d");
+  let ctx = document.getElementById("myChartIncomes").getContext("2d");
   let myChart = new Chart(ctx, {
     type: "doughnut",
     data: {
@@ -40,15 +40,12 @@ const renderChart = (data, labels) => {
 };
 
 const getChartData = () => {
-  console.log("fetching");
   fetch("/income/income_source_summary")
     .then((res) => res.json())
     .then((results) => {
-      console.log("results", results);
       const sourceData = results.income_source_data;
       const labels = Object.keys(sourceData);
       const data = Object.values(sourceData);
-      console.log(sourceData);
       renderChart(data, labels);
     });
 };

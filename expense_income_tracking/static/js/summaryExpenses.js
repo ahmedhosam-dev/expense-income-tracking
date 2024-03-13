@@ -1,5 +1,5 @@
 const renderChart = (data, labels) => {
-  let ctx = document.getElementById("myChart").getContext("2d");
+  let ctx = document.getElementById("myChartExpenses").getContext("2d");
   let myChart = new Chart(ctx, {
     type: "doughnut",
     data: {
@@ -39,25 +39,15 @@ const renderChart = (data, labels) => {
   });
 };
 
-const resizeChart = () => {
-  const canvas = document.getElementById("myChart");
-  canvas.width = 400; // Set the width
-  canvas.height = 400; // Set the height
-  renderChart(data, labels); // Call renderChart with data and labels
-};
-
 const getChartData = () => {
-  console.log("fetching");
   fetch("/expenses/expense_category_summary")
     .then((res) => res.json())
     .then((results) => {
-      console.log("results", results);
       const categoryData = results.expense_category_data;
       const labels = Object.keys(categoryData);
       const data = Object.values(categoryData);
-      console.log(categoryData);
       renderChart(data, labels);
     });
 };
 
-window.onload = getChartData;
+window.onload = getChartData();
