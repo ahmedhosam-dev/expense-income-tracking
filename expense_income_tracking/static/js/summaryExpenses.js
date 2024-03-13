@@ -1,6 +1,6 @@
-const renderChart = (data, labels) => {
-  let ctx = document.getElementById("myChartExpenses").getContext("2d");
-  let myChart = new Chart(ctx, {
+const renderChartExpenses = (data, labels) => {
+  let ctxe = document.getElementById("myChartExpenses").getContext("2d");
+  let myExpensesChart = new Chart(ctxe, {
     type: "doughnut",
     data: {
       labels: labels,
@@ -39,15 +39,15 @@ const renderChart = (data, labels) => {
   });
 };
 
-const getChartData = () => {
+const getExpenseChartData = () => {
   fetch("/expenses/expense_category_summary")
     .then((res) => res.json())
     .then((results) => {
       const categoryData = results.expense_category_data;
       const labels = Object.keys(categoryData);
       const data = Object.values(categoryData);
-      renderChart(data, labels);
+      renderChartExpenses(data, labels);
     });
 };
 
-window.onload = getChartData();
+window.onload = getExpenseChartData();

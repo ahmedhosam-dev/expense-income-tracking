@@ -4,4 +4,20 @@
     <h1>Dashboard</h1>
 </div>
 
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <h6>Expenses summary</h6>
+            <canvas id="myChartExpenses"></canvas>
+        </div>
+        <div class="col-md-6 text-center">
+            <h6>Incomes summary</h6>
+            <canvas id="myChartIncomes"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/summaryExpenses.js' %}" ></script>
+<script src="{% static 'js/summaryIncomes.js' %}" ></script>
+
 {% endblock content %}

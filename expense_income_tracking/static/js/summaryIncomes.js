@@ -1,6 +1,6 @@
-const renderChart = (data, labels) => {
-  let ctx = document.getElementById("myChartIncomes").getContext("2d");
-  let myChart = new Chart(ctx, {
+const renderChartIncomes = (data, labels) => {
+  let ctxi = document.getElementById("myChartIncomes").getContext("2d");
+  let myIncomeChart = new Chart(ctxi, {
     type: "doughnut",
     data: {
       labels: labels,
@@ -39,15 +39,15 @@ const renderChart = (data, labels) => {
   });
 };
 
-const getChartData = () => {
+const getIncomeChartData = () => {
   fetch("/income/income_source_summary")
     .then((res) => res.json())
     .then((results) => {
       const sourceData = results.income_source_data;
       const labels = Object.keys(sourceData);
       const data = Object.values(sourceData);
-      renderChart(data, labels);
+      renderChartIncomes(data, labels);
     });
 };
 
-window.onload = getChartData();
+window.onload = getIncomeChartData();
