@@ -6,18 +6,18 @@ _First make sure python and pip is installed on you machine, if not you can sear
 ### Make your venv
 Install venv
 
-```python
+```bash
 pip install virtualenv
 ```
 
 Create env
 
-```python
+```bash
 python -m venv .venv
 ```
 Active for windows (make sure the path is correct)
 
-```python 
+```bash 
 \.venv\Scripts\activate
 ```
 ---
