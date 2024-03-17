@@ -21,6 +21,17 @@
         </div>
     </form>
 
+    <h6 class="my-4">Categorys</h6>
+    <form action="{% url 'preferences' %}" method="post">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+            <input type="text" name="" id="">
+            <button class="btn btn-outline-secondary input-group-text" for="inputGroupSelect02" type="submit">Save</button>
+        </div>
+    </form>
+
+
+
 </div>
 
 {% endblock content %}
