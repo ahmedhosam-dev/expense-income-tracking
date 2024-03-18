@@ -84,3 +84,10 @@
 .showPasswordToggle:hover {
   transform: scale(1.2);
 }
+
+/* Custom CSS for the vertical line */
+.vertical-line {
+  border-left: 2px solid black; /* Change the color and thickness as needed */
+  height: 50vh; /* Adjust height as needed */
+  padding-right: -50px;
+}
