@@ -14,6 +14,9 @@ from django.urls import reverse
 from .utils import tokenGenerator
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 import threading
+from userpreferences.models import UserPreferences
+from income.models import Source
+from expenses.models import Category
 
 # Create your views here.
 
@@ -112,10 +115,15 @@ class VerificationView(View):
                 return redirect('login'+'?message='+'User already activated')
 
             if user.is_active:
+                messages.error(request, 'Account not activate, check your email')
                 return redirect('login')
+            
             user.is_active = True
             user.save()
 
+
+            print("Hello, world!")
+            
             messages.success(request, 'Account activated successfully')
             return redirect('login')
 
@@ -130,7 +138,8 @@ class LoginView(View):
     
     def post(self, request):
         userName = request.POST['username'] 
-        password = request.POST['password'] 
+        password = request.POST['password']
+
 
         if userName and password:
             user = auth.authenticate(username=userName, password=password)
@@ -138,6 +147,13 @@ class LoginView(View):
                 if user.is_active:
                     auth.login(request, user)
                     messages.success(request, f"Welcome, {user.username} you are now logged in.")
+        
+                    if not UserPreferences.objects.filter(user=request.user).exists():
+                        userPreferences = UserPreferences.objects.create(user=request.user, currency="USD -- United States Dollar")
+                        userPreferences.save()
+                        Category.objects.create(user=request.user, name="Food")
+                        Source.objects.create(user=request.user, name="Work")
+                        
                     return redirect('dashboard')
 
                 messages.error(request, "Account is not activate, please check your email!")
