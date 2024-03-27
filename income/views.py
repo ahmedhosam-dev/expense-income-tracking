@@ -12,8 +12,8 @@ import datetime
 
 @login_required(login_url='/auth/login')
 def index(request):
-    incomes = Income.objects.all()
-    sources = Source.objects.all()
+    incomes = Income.objects.all().filter(owner=request.user)
+    sources = Source.objects.all().filter(user=request.user)
     paginator = Paginator(incomes, 5)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
@@ -31,7 +31,7 @@ def index(request):
 
 @login_required(login_url='/auth/login')
 def add_income(request):
-    sources = Source.objects.all()
+    sources = Source.objects.all().filter(user=request.user)
     context = {
         'userName': request.user,
         'sources': sources,
@@ -64,7 +64,7 @@ def add_income(request):
 @login_required(login_url='/auth/login')
 def edit_income(request, id):
     income = Income.objects.get(pk=id)
-    sources = Source.objects.all()
+    sources = Source.objects.all().filter(user=request.user)
     context = {
         'income': income,
         'values': income,

@@ -12,8 +12,8 @@ import datetime
 
 @login_required(login_url='/auth/login')
 def index(request):
-    expenses = Expense.objects.all()
-    categories = Category.objects.all()
+    expenses = Expense.objects.all().filter(owner=request.user)
+    categories = Category.objects.all().filter(user=request.user)
     paginator = Paginator(expenses, 5)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
@@ -31,7 +31,7 @@ def index(request):
 
 @login_required(login_url='/auth/login')
 def add_expense(request):
-    categories = Category.objects.all()
+    categories = Category.objects.all(user=request.user)
     context = {
         'userName': request.user,
         'categories': categories,
@@ -64,7 +64,7 @@ def add_expense(request):
 @login_required(login_url='/auth/login')
 def edit_expense(request, id):
     expense = Expense.objects.get(pk=id)
-    categories = Category.objects.all()
+    categories = Category.objects.all().filter(user=request.user)
     context = {
         'expense': expense,
         'values': expense,
